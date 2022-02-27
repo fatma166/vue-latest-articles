@@ -1,5 +1,5 @@
 {
-  "name": "vue-latest-articles",
+  "name": "vue-project",
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
@@ -7,9 +7,6 @@
     "preview": "vite preview --port 5050"
   },
   "dependencies": {
-    "bootstrap": "^5.1.3",
-    "jquery": "^3.6.0",
-    "popper.js": "^1.16.1",
     "vue": "^3.2.31"
   },
   "devDependencies": {

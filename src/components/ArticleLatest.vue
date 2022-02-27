@@ -9,7 +9,19 @@
                 <p class="card-text">{{article.description }}</p>
             </div>
         </div>
-
+        <nav>
+            <ul class="pagination justify-content-center">
+                <li v-bind:class="[{disabled: !pagination.prev_page_url}]" class="page-item">
+                    <a class="page-link" href="#" @click="getArticles(pagination.prev_page_url)">Previous</a>
+                </li>
+                <li class="page-item disabled">
+                    <a class="page-link" href="#">{{ pagination.current_page }} of {{ pagination.last_page }}</a>
+                </li>
+                <li v-bind:class="[{disabled: !pagination.next_page_url}]" class="page-item">
+                    <a class="page-link" href="#" @click="getArticles(pagination.next_page_url)">Next</a>
+                </li>
+            </ul>
+        </nav>
 
     </div>
 </template>
@@ -19,7 +31,8 @@
     export default {
         data() {
             return {
-                articles:[]
+                articles:[],
+             pagination: {}
             };
         },
 
@@ -28,15 +41,26 @@
         },
 
         methods: {
+             
             getArticles(api_url) {
-                api_url = 'http://jsonplaceholder.typicode.com/posts';
+                api_url = 'http://localhost:8000/api/articles';
                  fetch(api_url)
                     .then(response => response.json())
-                    .then(data => (this.articles = data));
-
+                    .then(data => {(this.articles = data.data);this.paginator(data.meta, data.links)});
+                   
                         
            }
         },
+      
+      
+            paginator(meta,links) {
+                this.pagination = {
+                    current_page: meta.current_page,
+                    last_page: meta.last_page,
+                    next_page_url: links.next,
+                    prev_page_url: links.prev
+                };
+            },
 
 
     };
